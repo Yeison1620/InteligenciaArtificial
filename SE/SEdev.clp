@@ -5,7 +5,6 @@
 (defrule inicio
     =>
     (printout t "¡Bienvenido a la recomendación de libros de magia!" crlf)
-    (printout t "¡Bienvenido a la recomendación de libros de magia!" crlf)
 (printout t "Por favor responder 1 para un Sí y 0 para No" crlf crlf)
 
 ;;; Ingreso de hechos sobre preferencias
@@ -68,7 +67,7 @@
 
 (printout t "¿Te interesa la magia de escapismo acuático?" crlf)
 (bind ?escapismo-acuatico (read))
-(assert (magia-escapismo-acuatico))
+(assert (magia-escapismo-acuatico ?escapismo-acuatico))
 
 (printout t "¿Te gustaría aprender trucos de magia con fuego?" crlf)
 (bind ?fuego (read))
@@ -80,11 +79,13 @@
 
 (deffunction PuntuacionTotal
     (?cartas ?escenario ?principiantes ?objetos ?mentalismo ?historia ?cerca
-     ?escapismo ?monedas ?mentalismo-psicologico ?cuerdas-panuelos ?liquidos ?mentalismo-cartas)
-    (+ ?cartas ?escenario ?principiantes ?objetos ?mentalismo ?historia ?cerca
-       ?escapismo ?monedas ?mentalismo-psicologico ?cuerdas-panuelos ?liquidos ?mentalismo-cartas))
+ ?escapismo ?monedas ?mentalismo-psicologico ?cuerdas-panuelos ?liquidos ?mentalismo-cartas
+ ?naturaleza ?escapismo-acuatico ?fuego)
+(+ ?cartas ?escenario ?principiantes ?objetos ?mentalismo ?historia ?cerca
+ ?escapismo ?monedas ?mentalismo-psicologico ?cuerdas-panuelos ?liquidos ?mentalismo-cartas
+ ?naturaleza ?escapismo-acuatico ?fuego))
 
-;;; Definir las reglas para las respuesta 
+;;; Definir las reglas para las recomendaciones 
 
 (defrule muestra-recomendacion
     (puntuacion ?p)
@@ -117,6 +118,8 @@
         (printout t "- 'El Mundo Mágico de Juan Tamariz' por Juan Tamariz" crlf))
 )
 
+;;; Regla para calcular la puntuación total basada en las respuestas
+
 (defrule calcular-puntuacion
     (magia-cartas ?cartas)
     (magia-escenario ?escenario)
@@ -131,8 +134,12 @@
     (magia-cuerdas-panuelos ?cuerdas-panuelos)
     (magia-liquidos ?liquidos)
     (magia-mentalismo-cartas ?mentalismo-cartas)
+    (magia-naturaleza ?naturaleza)
+    (magia-escapismo-acuatico ?escapismo-acuatico)
+    (magia-fuego ?fuego)
     =>
     (bind ?puntuacion (PuntuacionTotal ?cartas ?escenario ?principiantes ?objetos ?mentalismo ?historia ?cerca
-                                    ?escapismo ?monedas ?mentalismo-psicologico ?cuerdas-panuelos ?liquidos ?mentalismo-cartas))
+                                    ?escapismo ?monedas ?mentalismo-psicologico ?cuerdas-panuelos ?liquidos ?mentalismo-cartas
+                                    ?naturaleza ?escapismo-acuatico ?fuego))
     (assert (puntuacion ?puntuacion))
 )
