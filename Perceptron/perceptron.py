@@ -1,11 +1,13 @@
 import numpy as np
 
+#Definicion de funciones
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
 
 def sigmoid_derivative(x):
     return x * (1 - x)
 
+# Datos de entrenamiento para la compuerta XOR
 training_data = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
 target_output = np.array([0, 1, 1, 0])
 
@@ -49,7 +51,7 @@ for epoch in range(epochs):
     hidden_bias += np.sum(d_hidden_layer, axis=0, keepdims=True) * learning_rate
 
 
-print("Resultado después del entrenamiento:")
+print("Resultado del entrenamiento:")
 for i in range(len(training_data)):
     inputs = training_data[i]
     hidden_layer_activation = np.dot(inputs, hidden_weights) + hidden_bias
