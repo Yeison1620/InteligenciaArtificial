@@ -18,7 +18,7 @@ def obtenerModelo(method,facesData,labels):
 	# Almacenando el modelo obtenido
 	emotion_recognizer.write("modelo"+method+".xml")
 
-dataPath = 'C:/Users/alejo/OneDrive/Escritorio/facialRecognition/Data' #Cambia a la ruta donde hayas almacenado Data
+dataPath = '/facialRecognition/Data' #Cambia a la ruta donde hayas almacenado Data
 emotionsList = os.listdir(dataPath)
 print('Lista de personas: ', emotionsList)
 
